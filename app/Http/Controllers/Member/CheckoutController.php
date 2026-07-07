@@ -25,8 +25,11 @@ class CheckoutController extends Controller
             ->first();
 
         if ($existingOrder) {
-            return redirect()->route('checkout.pay', $existingOrder)
-                ->with('info', 'Anda masih memiliki order yang belum selesai.');
+            if ($existingOrder->plan_id === $plan->id) {
+                return redirect()->route('checkout.pay', $existingOrder)
+                    ->with('info', 'Anda masih memiliki order yang belum selesai.');
+            }
+            $existingOrder->update(['status' => 'failed']);
         }
 
         $order = Order::create([
