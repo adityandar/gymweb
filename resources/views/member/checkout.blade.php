@@ -33,7 +33,15 @@
         <p class="text-xs text-gray-400 mt-1">Order #{{ $order->id }} — {{ ucfirst(str_replace('_', ' ', $order->status)) }}</p>
     </div>
 
-    @if ($paymentMode === 'automatic')
+    @if ($order->status === 'paid')
+    <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded text-center">
+        <p class="text-green-800 font-semibold text-lg">Pembayaran Berhasil</p>
+        <p class="text-green-600 text-sm mt-1">Membership kamu sudah aktif.</p>
+        <a href="{{ route('dashboard') }}" class="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">Lihat Dashboard</a>
+    </div>
+    @endif
+
+    @if ($paymentMode === 'automatic' && $order->status === 'pending')
         <button id="pay-button" class="w-full bg-blue-600 text-white py-3 rounded-lg text-lg hover:bg-blue-700">
             Pay Now
         </button>
@@ -50,7 +58,7 @@
                 });
             });
         </script>
-    @else
+    @elseif ($paymentMode === 'manual' && $order->status !== 'paid')
         <div class="mb-4 p-4 bg-gray-50 rounded">
             <p class="text-sm font-medium mb-2">Bank Account:</p>
             <p class="text-sm text-gray-600">BCA <span class="font-mono">1234567890</span> a/n GymFlow</p>

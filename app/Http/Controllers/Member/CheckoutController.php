@@ -53,7 +53,7 @@ class CheckoutController extends Controller
             abort(403);
         }
 
-        if (! in_array($order->status, ['pending', 'waiting_confirmation', 'rejected'])) {
+        if (! in_array($order->status, ['pending', 'waiting_confirmation', 'rejected', 'paid'])) {
             return redirect()->route('dashboard')->with('error', 'Order sudah diproses.');
         }
 
