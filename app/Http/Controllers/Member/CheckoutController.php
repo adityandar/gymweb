@@ -62,7 +62,11 @@ class CheckoutController extends Controller
         $switchToPlan = null;
 
         if ($switchToId = request('switch_to')) {
-            $switchToPlan = MembershipPlan::find($switchToId);
+            $switchToPlan = MembershipPlan::where('id', $switchToId)->where('is_active', true)->first();
+            if (! $switchToPlan) {
+                return redirect()->route('checkout.pay', $order)
+                    ->with('info', 'Plan yang dipilih tidak tersedia.');
+            }
         }
 
         if ($paymentMode === 'automatic' && $order->status === 'pending') {
@@ -76,6 +80,10 @@ class CheckoutController extends Controller
     {
         if ($order->user_id !== auth()->id()) {
             abort(403);
+        }
+
+        if (! $plan->is_active) {
+            return redirect()->route('pricing')->with('error', 'Plan tidak tersedia.');
         }
 
         $order->update(['status' => 'cancelled']);

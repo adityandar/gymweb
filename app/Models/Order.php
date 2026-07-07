@@ -16,6 +16,7 @@ class Order extends Model
         'status',
         'payment_mode',
         'midtrans_snap_token',
+        'midtrans_order_id',
     ];
 
     public function user(): BelongsTo

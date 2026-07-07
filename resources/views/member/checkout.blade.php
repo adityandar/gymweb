@@ -62,7 +62,7 @@
             </div>
         @endif
 
-        @if ($order->status !== 'waiting_confirmation' || $order->status === 'rejected')
+        @if (in_array($order->status, ['pending', 'rejected']))
         <form action="{{ route('checkout.upload-proof', $order) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
