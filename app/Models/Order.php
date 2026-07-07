@@ -14,6 +14,7 @@ class Order extends Model
         'plan_id',
         'amount',
         'status',
+        'payment_mode',
         'midtrans_snap_token',
     ];
 

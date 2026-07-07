@@ -26,6 +26,7 @@ class CheckoutController extends Controller
             'plan_id' => $plan->id,
             'amount' => $plan->price,
             'status' => 'pending',
+            'payment_mode' => SystemSetting::paymentMode(),
         ]);
 
         return redirect()->route('checkout.pay', $order);
