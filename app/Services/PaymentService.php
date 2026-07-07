@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\SystemSetting;
 use Midtrans\Config;
 use Midtrans\Snap;
 
@@ -18,8 +19,12 @@ class PaymentService
         Config::$is3ds = true;
     }
 
-    public function createTransaction(Order $order): string
+    public function createTransaction(Order $order): ?string
     {
+        if (SystemSetting::isManual()) {
+            return null;
+        }
+
         $payload = [
             'transaction_details' => [
                 'order_id' => 'ORDER-' . $order->id . '-' . time(),
@@ -41,7 +46,10 @@ class PaymentService
 
     public function handleWebhook(array $payload): void
     {
-        $orderId = $payload['order_id'] ?? '';
+        if (SystemSetting::isManual()) {
+            return;
+        }
+
         $transactionStatus = $payload['transaction_status'] ?? '';
         $fraudStatus = $payload['fraud_status'] ?? 'accept';
 

@@ -32,7 +32,7 @@ Route::middleware(['auth', 'role:member'])->group(function () {
     Route::post('/checkout/{plan}', [CheckoutController::class, 'store'])->name('checkout');
     Route::get('/checkout/{order}/pay', [CheckoutController::class, 'pay'])->name('checkout.pay');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-    Route::get('/checkout/failed', [CheckoutController::class, 'failed'])->name('checkout.failed');
+    Route::post('/checkout/{order}/upload-proof', [CheckoutController::class, 'uploadProof'])->name('checkout.upload-proof');
 
     Route::get('/payment-history', [MemberPayment::class, 'history'])->name('payment.history');
 
@@ -55,6 +55,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/attendance/scan', [App\Http\Controllers\Admin\AttendanceController::class, 'scan'])->name('attendance.scan.store');
     Route::resource('classes', App\Http\Controllers\Admin\ClassController::class);
     Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
+    Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings/payment-mode', [App\Http\Controllers\Admin\SettingController::class, 'updatePaymentMode'])->name('settings.payment-mode');
+    Route::get('/verifications', [App\Http\Controllers\Admin\PaymentVerificationController::class, 'index'])->name('verifications.index');
+    Route::post('/verifications/{order}/approve', [App\Http\Controllers\Admin\PaymentVerificationController::class, 'approve'])->name('verifications.approve');
+    Route::post('/verifications/{order}/reject', [App\Http\Controllers\Admin\PaymentVerificationController::class, 'reject'])->name('verifications.reject');
 });
 
 Route::middleware(['auth', 'role:trainer'])->prefix('trainer')->name('trainer.')->group(function () {

@@ -18,6 +18,8 @@
                 <a href="{{ route('admin.classes.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.classes.*') ? 'bg-gray-800' : '' }}">Classes</a>
                 <a href="{{ route('admin.attendance.scan') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.attendance.*') ? 'bg-gray-800' : '' }}">Scan QR</a>
                 <a href="{{ route('admin.reports.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.reports.*') ? 'bg-gray-800' : '' }}">Reports</a>
+                <a href="{{ route('admin.verifications.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.verifications.*') ? 'bg-gray-800' : '' }}">Verifications</a>
+                <a href="{{ route('admin.settings.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.settings.*') ? 'bg-gray-800' : '' }}">Settings</a>
             </nav>
             <div class="p-4 border-t border-gray-700">
                 <form method="POST" action="{{ route('logout') }}">

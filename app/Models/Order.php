@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -25,8 +27,13 @@ class Order extends Model
         return $this->belongsTo(MembershipPlan::class, 'plan_id');
     }
 
-    public function payment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function payment(): HasOne
     {
         return $this->hasOne(Payment::class);
+    }
+
+    public function proof(): HasOne
+    {
+        return $this->hasOne(PaymentProof::class);
     }
 }
