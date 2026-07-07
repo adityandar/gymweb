@@ -33,6 +33,7 @@ Route::middleware(['auth', 'role:member'])->group(function () {
     Route::get('/checkout/{order}/pay', [CheckoutController::class, 'pay'])->name('checkout.pay');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::post('/checkout/{order}/upload-proof', [CheckoutController::class, 'uploadProof'])->name('checkout.upload-proof');
+    Route::post('/checkout/{order}/switch/{plan}', [CheckoutController::class, 'switchPlan'])->name('checkout.switch');
 
     Route::get('/payment-history', [MemberPayment::class, 'history'])->name('payment.history');
 

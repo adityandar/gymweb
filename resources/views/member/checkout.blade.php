@@ -5,6 +5,23 @@
 <h1 class="text-2xl font-bold mb-6">Complete Payment</h1>
 
 <div class="bg-white rounded-lg shadow p-6 max-w-lg mx-auto">
+
+    @if ($switchToPlan)
+    <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded">
+        <p class="text-sm text-blue-800 mb-2">
+            Kamu punya order pending untuk <strong>{{ $order->plan->name }}</strong>.
+        </p>
+        <p class="text-sm text-blue-800 mb-3">
+            Ingin ganti ke <strong>{{ $switchToPlan->name }}</strong> (Rp {{ number_format($switchToPlan->price, 0, ',', '.') }})?
+        </p>
+        <form action="{{ route('checkout.switch', [$order, $switchToPlan]) }}" method="POST">
+            @csrf
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">Ya, Ganti Plan</button>
+            <a href="{{ route('checkout.pay', $order) }}" class="ml-2 text-sm text-gray-500 hover:underline">Batal</a>
+        </form>
+    </div>
+    @endif
+
     <div class="mb-6 pb-6 border-b">
         <h2 class="text-lg font-semibold mb-2">{{ $order->plan->name }} Plan
             <span class="ml-2 px-2 py-0.5 text-xs rounded-full {{ $paymentMode === 'automatic' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">

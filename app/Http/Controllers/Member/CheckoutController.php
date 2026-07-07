@@ -29,7 +29,11 @@ class CheckoutController extends Controller
                 return redirect()->route('checkout.pay', $existingOrder)
                     ->with('info', 'Anda masih memiliki order yang belum selesai.');
             }
-            $existingOrder->update(['status' => 'failed']);
+
+            return redirect()->route('checkout.pay', [
+                'order' => $existingOrder,
+                'switch_to' => $plan->id,
+            ]);
         }
 
         $order = Order::create([
@@ -55,12 +59,37 @@ class CheckoutController extends Controller
 
         $paymentMode = SystemSetting::paymentMode();
         $snapToken = null;
+        $switchToPlan = null;
+
+        if ($switchToId = request('switch_to')) {
+            $switchToPlan = MembershipPlan::find($switchToId);
+        }
 
         if ($paymentMode === 'automatic' && $order->status === 'pending') {
             $snapToken = $order->midtrans_snap_token ?? $paymentService->createTransaction($order);
         }
 
-        return view('member.checkout', compact('order', 'snapToken', 'paymentMode'));
+        return view('member.checkout', compact('order', 'snapToken', 'paymentMode', 'switchToPlan'));
+    }
+
+    public function switchPlan(Request $request, Order $order, MembershipPlan $plan): RedirectResponse
+    {
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $order->update(['status' => 'cancelled']);
+
+        $newOrder = Order::create([
+            'user_id' => auth()->id(),
+            'plan_id' => $plan->id,
+            'amount' => $plan->price,
+            'status' => 'pending',
+            'payment_mode' => SystemSetting::paymentMode(),
+        ]);
+
+        return redirect()->route('checkout.pay', $newOrder)
+            ->with('success', "Order beralih ke {$plan->name}.");
     }
 
     public function uploadProof(Request $request, Order $order): RedirectResponse
@@ -74,7 +103,6 @@ class CheckoutController extends Controller
             'notes' => 'nullable|string|max:500',
         ]);
 
-        // Delete previous proof if rejected
         if ($order->proof) {
             \Storage::disk('public')->delete($order->proof->file_path);
             $order->proof->delete();
