@@ -47,7 +47,7 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.pay', $order);
     }
 
-    public function pay(Order $order, PaymentService $paymentService): View
+    public function pay(Order $order, PaymentService $paymentService): View|RedirectResponse
     {
         if ($order->user_id !== auth()->id()) {
             abort(403);

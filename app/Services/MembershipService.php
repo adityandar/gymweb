@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Membership;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class MembershipService
 {
