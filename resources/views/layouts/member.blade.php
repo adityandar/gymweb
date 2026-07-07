@@ -13,9 +13,10 @@
                 <a href="{{ route('dashboard') }}" class="text-xl font-bold text-gray-900">GymFlow</a>
                 <div class="flex items-center gap-4">
                     <a href="{{ route('dashboard') }}" class="text-sm text-gray-600 hover:text-gray-900">Dashboard</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Membership</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Workout</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Classes</a>
+                    <a href="{{ route('payment.history') }}" class="text-sm text-gray-600 hover:text-gray-900">Payments</a>
+                    <a href="#" class="text-sm text-gray-400">Workout</a>
+                    <a href="#" class="text-sm text-gray-400">Classes</a>
+                    <a href="{{ route('attendance.index') }}" class="text-sm text-gray-600 hover:text-gray-900">Attendance</a>
                     <a href="{{ route('profile.edit') }}" class="text-sm text-gray-600 hover:text-gray-900">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

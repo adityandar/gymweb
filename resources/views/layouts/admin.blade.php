@@ -14,7 +14,8 @@
                 <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.dashboard') ? 'bg-gray-800' : '' }}">Dashboard</a>
                 <a href="{{ route('admin.plans.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.plans.*') ? 'bg-gray-800' : '' }}">Membership Plans</a>
                 <a href="{{ route('admin.members.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.members.*') ? 'bg-gray-800' : '' }}">Members</a>
-                <a href="#" class="block px-3 py-2 rounded hover:bg-gray-800 text-gray-400">Payments</a>
+                <a href="{{ route('admin.payments.index') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.payments.*') ? 'bg-gray-800' : '' }}">Payments</a>
+                <a href="{{ route('admin.attendance.scan') }}" class="block px-3 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('admin.attendance.*') ? 'bg-gray-800' : '' }}">Scan QR</a>
                 <a href="#" class="block px-3 py-2 rounded hover:bg-gray-800 text-gray-400">Reports</a>
             </nav>
             <div class="p-4 border-t border-gray-700">
