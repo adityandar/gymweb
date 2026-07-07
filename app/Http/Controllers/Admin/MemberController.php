@@ -27,8 +27,9 @@ class MemberController extends Controller
 
     public function show(User $member): View
     {
-        $member->load('activeMembership.plan', 'attendances', 'workoutPlans');
+        $member->load('memberships.plan', 'attendances', 'workoutPlans');
+        $activeMembership = $member->activeMembership();
 
-        return view('admin.members.show', compact('member'));
+        return view('admin.members.show', compact('member', 'activeMembership'));
     }
 }

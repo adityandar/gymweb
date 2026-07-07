@@ -19,11 +19,11 @@
 
     <div class="bg-white rounded-lg shadow p-6">
         <h2 class="text-lg font-semibold mb-4">Membership</h2>
-        @if ($member->activeMembership)
+        @if ($activeMembership)
             <dl class="space-y-2 text-sm">
-                <div class="flex justify-between"><dt class="text-gray-500">Plan</dt><dd>{{ $member->activeMembership->plan->name }}</dd></div>
-                <div class="flex justify-between"><dt class="text-gray-500">Start</dt><dd>{{ $member->activeMembership->start_date->format('d M Y') }}</dd></div>
-                <div class="flex justify-between"><dt class="text-gray-500">End</dt><dd>{{ $member->activeMembership->end_date->format('d M Y') }}</dd></div>
+                <div class="flex justify-between"><dt class="text-gray-500">Plan</dt><dd>{{ $activeMembership->plan->name }}</dd></div>
+                <div class="flex justify-between"><dt class="text-gray-500">Start</dt><dd>{{ $activeMembership->start_date->format('d M Y') }}</dd></div>
+                <div class="flex justify-between"><dt class="text-gray-500">End</dt><dd>{{ $activeMembership->end_date->format('d M Y') }}</dd></div>
                 <div class="flex justify-between">
                     <dt class="text-gray-500">Status</dt>
                     <dd><span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-700">Active</span></dd>
