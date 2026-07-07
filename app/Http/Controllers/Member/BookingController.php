@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\GymClass;
+use App\Services\AttendanceService;
 use Illuminate\Http\RedirectResponse;
 
 class BookingController extends Controller
 {
-    public function store(GymClass $class): RedirectResponse
+    public function store(GymClass $class, AttendanceService $attendanceService): RedirectResponse
     {
+        if (! $attendanceService->hasActiveMembership(auth()->user())) {
+            return back()->with('error', 'Hanya member dengan membership aktif yang bisa book kelas.');
+        }
+
         if ($class->bookedCount() >= $class->capacity) {
             return back()->with('error', 'Class is full.');
         }

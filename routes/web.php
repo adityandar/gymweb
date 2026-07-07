@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:member'])->group(function () {
     Route::get('/classes', [MemberClassController::class, 'index'])->name('classes.index');
     Route::post('/classes/{class}/book', [BookingController::class, 'store'])->name('bookings.store');
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.cancel');
+    Route::post('/bookings/{booking}/cancel', [BookingController::class, 'destroy'])->name('bookings.cancel.post');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
