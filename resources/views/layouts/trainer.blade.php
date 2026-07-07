@@ -11,10 +11,9 @@
         <aside class="w-64 bg-indigo-900 text-white flex flex-col">
             <div class="p-6 text-xl font-bold border-b border-indigo-800">GymFlow</div>
             <nav class="flex-1 p-4 space-y-1">
-                <a href="#" class="block px-3 py-2 rounded hover:bg-indigo-800">Dashboard</a>
-                <a href="#" class="block px-3 py-2 rounded hover:bg-indigo-800">My Members</a>
-                <a href="#" class="block px-3 py-2 rounded hover:bg-indigo-800">Workout Plans</a>
-                <a href="#" class="block px-3 py-2 rounded hover:bg-indigo-800">Classes</a>
+                <a href="{{ route('trainer.dashboard') }}" class="block px-3 py-2 rounded hover:bg-indigo-800 {{ request()->routeIs('trainer.dashboard') ? 'bg-indigo-800' : '' }}">Dashboard</a>
+                <a href="{{ route('trainer.workout-plans.index') }}" class="block px-3 py-2 rounded hover:bg-indigo-800 {{ request()->routeIs('trainer.workout-plans.*') ? 'bg-indigo-800' : '' }}">Workout Plans</a>
+                <a href="{{ route('trainer.classes.index') }}" class="block px-3 py-2 rounded hover:bg-indigo-800 {{ request()->routeIs('trainer.classes.*') ? 'bg-indigo-800' : '' }}">My Classes</a>
             </nav>
             <div class="p-4 border-t border-indigo-800">
                 <form method="POST" action="{{ route('logout') }}">
