@@ -20,13 +20,12 @@ class CheckoutController extends Controller
             return redirect()->route('pricing')->with('error', 'Plan tidak tersedia.');
         }
 
-        $status = SystemSetting::isAutomatic() ? 'pending' : 'waiting_confirmation';
-
+        // All orders start as pending; manual mode moves to waiting_confirmation after proof upload
         $order = Order::create([
             'user_id' => auth()->id(),
             'plan_id' => $plan->id,
             'amount' => $plan->price,
-            'status' => $status,
+            'status' => 'pending',
         ]);
 
         return redirect()->route('checkout.pay', $order);
