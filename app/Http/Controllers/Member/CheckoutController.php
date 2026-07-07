@@ -20,7 +20,15 @@ class CheckoutController extends Controller
             return redirect()->route('pricing')->with('error', 'Plan tidak tersedia.');
         }
 
-        // All orders start as pending; manual mode moves to waiting_confirmation after proof upload
+        $existingOrder = Order::where('user_id', auth()->id())
+            ->whereIn('status', ['pending', 'waiting_confirmation', 'rejected'])
+            ->first();
+
+        if ($existingOrder) {
+            return redirect()->route('checkout.pay', $existingOrder)
+                ->with('info', 'Anda masih memiliki order yang belum selesai.');
+        }
+
         $order = Order::create([
             'user_id' => auth()->id(),
             'plan_id' => $plan->id,

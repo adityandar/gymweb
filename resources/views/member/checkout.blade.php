@@ -6,7 +6,11 @@
 
 <div class="bg-white rounded-lg shadow p-6 max-w-lg mx-auto">
     <div class="mb-6 pb-6 border-b">
-        <h2 class="text-lg font-semibold mb-2">{{ $order->plan->name }} Plan</h2>
+        <h2 class="text-lg font-semibold mb-2">{{ $order->plan->name }} Plan
+            <span class="ml-2 px-2 py-0.5 text-xs rounded-full {{ $paymentMode === 'automatic' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
+                {{ ucfirst($paymentMode) }}
+            </span>
+        </h2>
         <p class="text-3xl font-bold text-blue-600">Rp {{ number_format($order->amount, 0, ',', '.') }}</p>
         <p class="text-sm text-gray-500 mt-1">{{ $order->plan->duration_months }} month(s) access</p>
         <p class="text-xs text-gray-400 mt-1">Order #{{ $order->id }} — {{ ucfirst(str_replace('_', ' ', $order->status)) }}</p>

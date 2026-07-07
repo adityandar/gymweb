@@ -18,9 +18,18 @@
         <p class="text-3xl font-bold text-gray-900">{{ $totalTrainers }}</p>
     </div>
     <div class="bg-white rounded-lg shadow p-6">
-        <p class="text-gray-500 text-sm">Revenue</p>
-        <p class="text-3xl font-bold text-gray-900">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</p>
+        <p class="text-gray-500 text-sm">Payment Mode</p>
+        <p class="text-lg font-bold">
+            <span class="px-2 py-1 rounded-full text-sm {{ $paymentMode === 'automatic' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
+                {{ ucfirst($paymentMode) }}
+            </span>
+        </p>
     </div>
+</div>
+
+<div class="bg-white rounded-lg shadow p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-2">Revenue</h2>
+    <p class="text-3xl font-bold text-gray-900">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</p>
 </div>
 
 <div class="bg-white rounded-lg shadow p-6">
