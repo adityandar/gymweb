@@ -20,7 +20,7 @@ class AttendanceController extends Controller
         $attendance = $attendanceService->validateAndRecord($token);
 
         if (! $attendance) {
-            return back()->with('error', 'QR invalid atau expired, atau sudah check-in hari ini.');
+            return back()->with('error', 'QR invalid, expired, atau member tidak memiliki membership aktif.');
         }
 
         return back()->with('success', 'Check-in berhasil untuk ' . $attendance->user->name);

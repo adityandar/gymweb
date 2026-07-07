@@ -18,6 +18,11 @@ class AttendanceService
         return base64_encode($data);
     }
 
+    public function hasActiveMembership(User $user): bool
+    {
+        return $user->activeMembership() !== null;
+    }
+
     public function validateAndRecord(string $token): ?Attendance
     {
         $data = json_decode(base64_decode($token), true);
@@ -32,6 +37,10 @@ class AttendanceService
 
         $user = User::find($data['user_id']);
         if (! $user || ! $user->hasRole('member')) {
+            return null;
+        }
+
+        if (! $this->hasActiveMembership($user)) {
             return null;
         }
 
